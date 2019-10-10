@@ -19,6 +19,7 @@ namespace WebShopAPI
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .UseUrls("https://localhost:5051")
                 .UseStartup<Startup>();
     }
 }

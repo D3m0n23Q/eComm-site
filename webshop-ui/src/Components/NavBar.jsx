@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
-import { 
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem } from 'reactstrap';
+import { Navbar, NavbarBrand } from 'reactstrap';
 import { Link } from "react-router-dom";
 
 export class NavBar extends Component {
     render() {
         return (
-            <Navbar className="navbar">
+            <Navbar fixed="top">
                 <NavbarBrand>
-                    <Link to="/home">Web Shop</Link>
+                    <Link to="/home" style={{color: '#ccc'}}>eComm Inc.</Link>
                 </NavbarBrand>
-                <Link to="/checkout">Checkout</Link>
+                <Link to="/checkout" style={{color: '#ccc'}}>Shopping Cart</Link>
             </Navbar>
         );
     }

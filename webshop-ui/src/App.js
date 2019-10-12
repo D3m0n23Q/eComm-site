@@ -8,7 +8,8 @@ import { Footer } from './Components/Footer'
 export default class App extends Component {
   constructor() {
     super();
-    this.ShoppingCart = {CartValue: 0, Products: []}
+    this.Cookie = JSON.parse(this.getCookie('cart'));
+    this.ShoppingCart = this.Cookie ? this.Cookie : {CartValue: 0, Products: []}
   }
 
   render () {
@@ -16,9 +17,23 @@ export default class App extends Component {
     <div>
       <NavBar checkout={this.checkout} navigateHome={this.navigateHome}/>
       <Footer/>
-      <Routes cart={this.ShoppingCart}/>
+      <Routes cart={this.ShoppingCart} getCookie={this.getCookie()}/>
       <ToastContainer />
     </div>);
+  }
+
+  getCookie(name) {
+    var cname = name + '=';
+    var cookie = document.cookie;
+    var ca = cookie.split(';');
+
+    for(var i = 0; i < ca.length; i++) {
+      var c = ca[i].trimLeft();
+
+      if(c.indexOf(cname) === 0) return c.substring(cname.length, c.length)
+    }
+
+    return '';
   }
 }
 

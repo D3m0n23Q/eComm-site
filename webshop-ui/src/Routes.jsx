@@ -1,8 +1,9 @@
 import React, { Component }  from "react"
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 
 import { ProductsScreen } from "./Components/ProductsScreen";
 import { CheckoutScreen } from "./Components/CheckoutScreen";
+import { ThankYouScreen } from "./Components/ThankYouScreen";
 
 
 export class Routes extends Component {
@@ -15,6 +16,11 @@ export class Routes extends Component {
               <Route path="/checkout">
                 <CheckoutScreen cart={this.props.cart}/>
               </Route>
+              <Route path="/orderSubmitted">
+                <ThankYouScreen />
+              </Route>
+
+              <Redirect from='/' to='/home'/>
             </Switch>
           );
     }

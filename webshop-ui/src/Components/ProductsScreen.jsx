@@ -18,10 +18,7 @@ export class ProductsScreen extends Component {
 
     render() {
         return (
-            <div>
-                <NavBar checkout={this.checkout}/>
-                <PurchasableProductList products={this.state.products} addProductToCart={this.addProductToCart}/>
-            </div>
+            <PurchasableProductList products={this.state.products} addProductToCart={this.addProductToCart}/>
         );
     }
 }

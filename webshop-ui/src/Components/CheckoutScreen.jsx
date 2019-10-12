@@ -6,15 +6,16 @@ import { CheckoutProductList } from './CheckoutProductList';
 export class CheckoutScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {shippingCost: 0, products: props.cart.Products};
+        this.state = {shippingCost: 0};
+        this.clearCart = this.clearCart.bind(this);
+        this.createOrder = this.props.createOrder;
     }
     render() {
         return (
             <div>
-                <NavBar navigateHome={this.props.navigateHome}/>
                 <h1>Checkout page</h1>
                 <div>
-                    <CheckoutProductList products={this.state.products}/>
+                    <CheckoutProductList products={this.props.cart.Products}/>
                 </div>
                 <p>
                     Order Total: ${this.props.cart.CartValue.toFixed(2)}
@@ -24,11 +25,11 @@ export class CheckoutScreen extends Component {
                 <button onClick={this.calculateShipping.bind(this)}>Calculate</button>
                 </p>
                 <p>
-                    <label>Total items in cart: {this.state.products.reduce((acc ,product) => acc + product.count, 0)}</label>
+                    <label>Total items in cart: {this.props.cart.Products.reduce((acc ,product) => acc + product.count, 0)}</label>
                 </p>
                 <div hidden={this.props.cart.CartValue <= 0}>
-                    <button onClick={this.clearCart.bind(this)}>Clear cart</button>
-                    <button onClick={this.createOrder.bind(this)} >Place order</button>
+                    <button onClick={this.clearCart}>Clear cart</button>
+                    <button onClick={this.createOrder} >Place order</button>
                 </div>
             </div>
         );
@@ -41,8 +42,9 @@ export class CheckoutScreen extends Component {
     }
 
     clearCart() {
-        this.props.clearCart();
-        this.setState({shippingCost:0, products:[]});
+        this.props.cart.CartValue = 0;
+        this.props.cart.Products = [];
+        this.setState({shippingCost:0});
     }
 
     createOrder() {

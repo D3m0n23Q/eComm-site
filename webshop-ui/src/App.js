@@ -3,15 +3,24 @@ import ReactDOM from 'react-dom';
 import {CheckoutScreen} from './Components/CheckoutScreen'
 import {ProductsScreen} from './Components/ProductsScreen'
 import { ThankYouScreen } from './Components/ThankYouScreen';
+import { NavBar } from './Components/NavBar';
 
 export default class App extends Component {
   constructor() {
     super();
     this.ShoppingCart = {CartValue: 0, Products: []}
+    this.checkout=this.checkout.bind(this);
+    this.navigateHome = this.navigateHome.bind(this);
   }
 
   render () {
-    return <ProductsScreen addProductToCart={this.addProductToCart.bind(this)} checkout={this.checkout.bind(this)}/>
+    return (
+    <div>
+      <NavBar checkout={this.checkout} navigateHome={this.navigateHome}/>
+      <div id="div-content">
+        <ProductsScreen addProductToCart={this.addProductToCart.bind(this)} checkout={this.checkout.bind(this)}/>
+      </div>
+    </div>);
   }
 
   addProductToCart(product) {
@@ -30,21 +39,15 @@ export default class App extends Component {
   }
   
   checkout() {
-    ReactDOM.render(<CheckoutScreen cart={this.ShoppingCart} createOrder={this.createOrder.bind(this)} clearCart={this.clearCart.bind(this)} navigateHome={this.navigateHome.bind(this)}/>, document.getElementById('root'));
-  }
-
-  clearCart() {
-    this.ShoppingCart.CartValue = 0;
-    this.ShoppingCart.Products = [];
+    ReactDOM.render(<CheckoutScreen cart={this.ShoppingCart} createOrder={this.createOrder.bind(this)}/>, document.getElementById('div-content'));
   }
 
   createOrder() {
-    ReactDOM.render(<ThankYouScreen navigateHome={this.navigateHome.bind(this)}/>, document.getElementById('root'));
-    this.products = [];
+    ReactDOM.render(<ThankYouScreen/>, document.getElementById('div-content'));
   }
   
   navigateHome() {
-      ReactDOM.render(<ProductsScreen addProductToCart={this.addProductToCart.bind(this)} checkout={this.checkout.bind(this)}/>, document.getElementById('root'));
+      ReactDOM.render(<ProductsScreen addProductToCart={this.addProductToCart.bind(this)}/>, document.getElementById('div-content'));
   }
 }
 

@@ -8,7 +8,7 @@ export class PurchasableProductList extends Component {
     }
     render() {
         return (
-            <Container class="productList">
+            <Container className="productList">
                 <Row className="productListHeader">
                     <Col>Product name</Col>
                     <Col>Price ($)</Col>
@@ -20,7 +20,7 @@ export class PurchasableProductList extends Component {
                         <Col>{product.name}</Col>
                         <Col>${product.value.toFixed(2)} </Col>
                         <Col>
-                            <input type='number' id={'productQuantitySelector_' + product.id} min='0'/>
+                            <input type='number' id={'productQuantitySelector_' + product.id} min='0' placeholder='0'/>
                         </Col>
                         <Col><button onClick={() => this.addItemToCart(product)}>Add to cart</button></Col>
                     </Row>

@@ -7,7 +7,7 @@ import { PurchasableProductList } from './PurchasableProductsList';
 export class ProductsScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {products: []};
+        this.state = {products: [], error: false};
         this.addToCart = this.addToCart.bind(this);
         this.getProducts();
     }
@@ -18,7 +18,11 @@ export class ProductsScreen extends Component {
                 <Col>
                     <h2>Products</h2>
                 </Col>
-                <PurchasableProductList products={this.state.products} addToCart={this.addToCart}/>
+                {
+                    this.state.error ? 
+                    <Col>No products to display</Col> : 
+                    <PurchasableProductList products={this.state.products} addToCart={this.addToCart}/>
+                }
             </Container>
         );
     }
@@ -37,14 +41,20 @@ export class ProductsScreen extends Component {
     
         this.props.cart.CartValue += _Product.value * quantity;
 
+        var d = new Date();
+        var content = JSON.stringify(this.props.cart);
+        d.setDate(d.getDate() + 1); d.setMilliseconds(0); d.setSeconds(0); d.setMinutes(0); d.setHours(0);
+        document.cookie = 'cart=' + content + ';expires=' + d;
+
         toast('Added ' + quantity + 'x ' + _Product.name + ' to the cart', {autoClose: 2000, position: "bottom-left"});
     }
 
     getProducts() {
         fetch('/api/Products')
             .then(response => response.json())
+            .catch(error => this.setState({error: true}))
             .then(data => this.setState({products: data})
             )
     }
-}
 
+}

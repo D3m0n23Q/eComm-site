@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Col, Row } from 'reactstrap'
+import { Container, Col } from 'reactstrap'
 import { toast } from 'react-toastify'
 
 import { PurchasableProductList } from './PurchasableProductsList';
@@ -24,7 +24,7 @@ export class ProductsScreen extends Component {
     }
 
     addToCart(product, quantity) {
-        var _Product = this.props.cart.Products.find((elem) => elem.id == product.id)
+        var _Product = this.props.cart.Products.find((elem) => elem.id === product.id)
     
         if(!_Product) { 
             _Product = product;

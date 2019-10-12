@@ -1,23 +1,25 @@
 import React, { Component } from 'react';
 import { Container, Col, Row } from 'reactstrap'
 import { toast } from 'react-toastify'
+import { Redirect } from "react-router-dom";
 
 import { CheckoutProductList } from './CheckoutProductList';
 
 export class CheckoutScreen extends Component {
     constructor(props) {
         super(props);
-        this.state = {shippingCost: 0};
+        this.state = {shippingCost: 0, redirect: false};
         this.Cart = props.cart;
         this.clearCart = this.clearCart.bind(this);
-        this.createOrder = this.props.createOrder;
+        this.createOrder = this.createOrder.bind(this);
         this.removeItemFromCart = this.removeItemFromCart.bind(this);
         
         if(props.cart.Products.length > 0) this.calculateShipping();
     }
 
     render() {
-        return (
+        return this.state.redirect ? <Redirect push to='/orderSubmitted'/> :
+        (
             <Container>
                 <Row>
                     <Col>
@@ -67,8 +69,8 @@ export class CheckoutScreen extends Component {
 
     createOrder() {
         this.postCartToAPI('api/Orders/Create')
-        .then(() => alert('Order successfully submitted!'))
-        .then(() => this.props.createOrder());
+        .then(() => this.clearCart())
+        .then(() => this.setState({redirect: true}));
     }
 
     postCartToAPI(uri) {
@@ -82,13 +84,13 @@ export class CheckoutScreen extends Component {
     }
 
     removeItemFromCart(product, quantity) {
-        var _Product = this.Cart.Products.find((elem) => elem.id == product.id);
+        var _Product = this.Cart.Products.find((elem) => elem.id === product.id);
           
         this.Cart.CartValue -= _Product.value * Math.min(_Product.count, quantity);
 
         _Product.count = Math.max(0, _Product.count - quantity);
 
-        if(product.count == 0) 
+        if(product.count === 0) 
         {
             var index = this.Cart.Products.indexOf(product);
             this.Cart.Products.splice(index, 1);

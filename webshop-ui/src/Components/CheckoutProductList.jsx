@@ -30,7 +30,7 @@ export class CheckoutProductList extends Component {
                                 ${(product.value * product.count).toFixed(2)}
                             </Col>
                             <Col>
-                                <input type='number' id={'productQuantitySelector_' + product.id} min='0' max={product.count}/>
+                                <input type='number' id={'productQuantitySelector_' + product.id} min='0' max={product.count} placeholder='All'/>
                             </Col>
                             <Col>
                                 <button onClick={() => this.removeItemFromCart(product)}>Remove from cart</button>

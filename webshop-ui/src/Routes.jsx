@@ -14,7 +14,7 @@ export class Routes extends Component {
                 <ProductsScreen cart={this.props.cart}/>
               </Route>
               <Route path="/checkout">
-                <CheckoutScreen cart={this.props.cart} getCookie={this.props.getCookie}/>
+                <CheckoutScreen cart={this.props.cart}/>
               </Route>
               <Route path="/orderSubmitted">
                 <ThankYouScreen />

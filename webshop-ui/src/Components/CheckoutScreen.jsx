@@ -64,7 +64,6 @@ export class CheckoutScreen extends Component {
     clearCart() {
         this.Cart.CartValue = 0;
         this.Cart.Products = [];
-        this.deleteCartCookie();
         this.setState({shippingCost:0});
     }
 
@@ -72,18 +71,6 @@ export class CheckoutScreen extends Component {
         this.postCartToAPI('api/Orders/Create')
         .then(() => this.clearCart())
         .then(() => this.setState({redirect: true}));
-    }
-
-    deleteCartCookie() {
-        var cookies = document.cookie;
-        var name = "cart="
-        var ca = cookies.split(';');
-        for(var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            c = c.trimLeft();
-
-            if(c.indexOf(name) === 0) document.cookie = "cart=null;expiry=" + new Date()
-        }
     }
 
     postCartToAPI(uri) {

@@ -30,7 +30,12 @@ export default class App extends Component {
   }
   
   checkout() {
-    ReactDOM.render(<CheckoutScreen cart={this.ShoppingCart} createOrder={this.createOrder.bind(this)} navigateHome={this.navigateHome.bind(this)}/>, document.getElementById('root'));
+    ReactDOM.render(<CheckoutScreen cart={this.ShoppingCart} createOrder={this.createOrder.bind(this)} clearCart={this.clearCart.bind(this)} navigateHome={this.navigateHome.bind(this)}/>, document.getElementById('root'));
+  }
+
+  clearCart() {
+    this.ShoppingCart.CartValue = 0;
+    this.ShoppingCart.Products = [];
   }
 
   createOrder() {

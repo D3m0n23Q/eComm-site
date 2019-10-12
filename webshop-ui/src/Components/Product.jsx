@@ -7,7 +7,7 @@ export class Product extends Component{
     render() {
         const product = this.props.product;
         return (
-                <span>{product.name} {product.value} </span>
+                <span>{product.name} ${product.value.toFixed(2)} </span>
         )
     }
 }

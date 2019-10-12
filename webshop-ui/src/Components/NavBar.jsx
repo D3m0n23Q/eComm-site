@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
-import { ProductsScreen } from './ProductsScreen';
+import { Navbar } from 'reactstrap';
 
 export class NavBar extends Component {
     render() {
         return (
-            <div>
-                <button onClick={this.props.navigateHome}>Home</button>
+            <Navbar className="navbar">
+                <button onClick={this.props.navigateHome}>WebShop</button>
                 <button onClick={this.props.checkout}>Checkout</button>
-            </div>
+            </Navbar>
         );
     }
 }

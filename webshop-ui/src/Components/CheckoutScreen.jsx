@@ -1,25 +1,57 @@
 import React, { Component } from 'react';
-import { NavBar } from './NavBar';
+import { Container, Col, Row } from 'reactstrap'
+import { toast } from 'react-toastify'
+import { Redirect } from "react-router-dom";
+
 import { CheckoutProductList } from './CheckoutProductList';
 
-
 export class CheckoutScreen extends Component {
-    constructor() {
-        super();
-        this.state = {shippingCost: 0};
+    constructor(props) {
+        super(props);
+        this.state = {shippingCost: 0, redirect: false};
+        this.Cart = props.cart;
+        this.clearCart = this.clearCart.bind(this);
+        this.createOrder = this.createOrder.bind(this);
+        this.removeItemFromCart = this.removeItemFromCart.bind(this);
+        
+        if(props.cart.Products.length > 0) this.calculateShipping();
     }
+
     render() {
-        return (
-            <div>
-                <NavBar navigateHome={this.props.navigateHome}/>
-                <h1>Checkout page</h1>
-                <CheckoutProductList products={this.props.cart.Products}/>
-                <br></br>
-                <label>Shipping cost: ${this.state.shippingCost}</label>
-                <button onClick={this.calculateShipping.bind(this)}>Calculate</button>
-                <br></br>
-                <button onClick={this.createOrder.bind(this)}>Purchase</button>
-            </div>
+        return this.state.redirect ? <Redirect push to='/orderSubmitted'/> :
+        (
+            <Container>
+                <Row>
+                    <Col>
+                        <h2>Checkout</h2>
+                    </Col>
+                </Row>
+                <Row>
+                    <CheckoutProductList products={this.Cart.Products} removeItemFromCart={this.removeItemFromCart}/>
+                </Row>
+                <Row>
+                    <Col>
+                        <label>Total items in cart: {this.Cart.Products.reduce((acc ,product) => acc + parseInt(product.count), 0)}</label>
+                    </Col>
+                    <Col>
+                        <label>Shipping cost: ${this.state.shippingCost.toFixed(2)}</label>
+                    </Col>
+                    <Col>
+                        Order Total: ${(this.Cart.CartValue + this.state.shippingCost).toFixed(2)}
+                    </Col>
+                </Row>
+                <Row>
+                </Row>
+                <Row></Row>
+                <Row>
+                    <Col>
+                        <button onClick={this.clearCart}>Clear cart</button>
+                    </Col>
+                    <Col>
+                        <button onClick={this.createOrder} disabled={this.Cart.Products.length <= 0}>Place order</button>
+                    </Col>
+                </Row>
+            </Container>
         );
     }
 
@@ -29,19 +61,42 @@ export class CheckoutScreen extends Component {
         .then(data => this.setState({shippingCost: data}));
     }
 
+    clearCart() {
+        this.Cart.CartValue = 0;
+        this.Cart.Products = [];
+        this.setState({shippingCost:0});
+    }
+
     createOrder() {
         this.postCartToAPI('api/Orders/Create')
-        .then(() => alert('Order successfully submitted!'))
-        .then(() => this.props.createOrder());
+        .then(() => this.clearCart())
+        .then(() => this.setState({redirect: true}));
     }
 
     postCartToAPI(uri) {
-        var _Data = JSON.stringify(this.props.cart)
+        var data = JSON.stringify(this.Cart)
         return fetch(uri, 
         {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: _Data
+            body: data
         })
+    }
+
+    removeItemFromCart(product, quantity) {
+        var _Product = this.Cart.Products.find((elem) => elem.id === product.id);
+          
+        this.Cart.CartValue -= _Product.value * Math.min(_Product.count, quantity);
+
+        _Product.count = Math.max(0, _Product.count - quantity);
+
+        if(product.count === 0) 
+        {
+            var index = this.Cart.Products.indexOf(product);
+            this.Cart.Products.splice(index, 1);
+        }
+
+        toast('Removed ' + quantity + 'x ' + _Product.name + ' from the cart', {autoClose: 2000, position: "bottom-left"});
+        this.calculateShipping();
     }
 }

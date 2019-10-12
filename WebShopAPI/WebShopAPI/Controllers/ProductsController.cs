@@ -15,13 +15,32 @@ namespace WebShopAPI.Controllers
         {
             this.Products = new List<Product>()
             { 
-                new Product { Id = 1, Name = "ProductA", Value = 20.69m },
-                new Product { Id = 2, Name = "ProductB", Value = 16.49m },
-                new Product { Id = 3, Name = "ProductC", Value = 9.29m },
-                new Product { Id = 4, Name = "ProductD", Value = 63.26m },
-                new Product { Id = 5, Name = "ProductE", Value = 45.61m },
-                new Product { Id = 6, Name = "ProductF", Value = 73.33m },
-                new Product { Id = 7, Name = "ProductG", Value = 64.47m }
+                new Product { Id = 1, Name = "Product A", Value = 20.69m },
+                new Product { Id = 2, Name = "Product B", Value = 16.49m },
+                new Product { Id = 3, Name = "Product C", Value = 9.29m },
+                new Product { Id = 4, Name = "Product D", Value = 63.26m },
+                new Product { Id = 5, Name = "Product E", Value = 45.61m },
+                new Product { Id = 6, Name = "Product F", Value = 73.33m },
+                new Product { Id = 7, Name = "Product G", Value = 64.47m },
+                new Product { Id = 8, Name = "Product H", Value = 84.47m },
+                new Product { Id = 9, Name = "Product I", Value = 34.47m },
+                new Product { Id = 10, Name = "Product J", Value = 65.47m },
+                new Product { Id = 11, Name = "Product K", Value = 44.47m },
+                new Product { Id = 12, Name = "Product L", Value = 24.47m },
+                new Product { Id = 13, Name = "Product M", Value = 83.47m },
+                new Product { Id = 14, Name = "Product N", Value = 24.44m },
+                new Product { Id = 15, Name = "Product O", Value = 54.57m },
+                new Product { Id = 16, Name = "Product P", Value = 35.46m },
+                new Product { Id = 17, Name = "Product Q", Value = 74.27m },
+                new Product { Id = 18, Name = "Product R", Value = 64.47m },
+                new Product { Id = 19, Name = "Product S", Value = 37.47m },
+                new Product { Id = 20, Name = "Product T", Value = 66.47m },
+                new Product { Id = 21, Name = "Product U", Value = 84.88m },
+                new Product { Id = 22, Name = "Product V", Value = 68.47m },
+                new Product { Id = 23, Name = "Product W", Value = 44.77m },
+                new Product { Id = 24, Name = "Product X", Value = 30.64m },
+                new Product { Id = 25, Name = "Product Y", Value = 79.49m },
+                new Product { Id = 26, Name = "Product Z", Value = 15.47m }
             };
         }
 

@@ -12,18 +12,53 @@ code {
     monospace;
 }
 
-
-PurchasableProduct {
-  border: 2px solid black;
-  padding: 10px 10px;
-  margin: 20px 0px;
-}
-
 button
 {
-    background-color: #333;
+    background-color: #555;
     border: none;
-    outline: none;
-    padding: 16px;
     color: white;
+    outline: none;
+    padding: 10px;
+}
+
+button:disabled
+{
+    background-color: #aaa;
+}
+
+.row 
+{
+    margin: 10px;
+    align-content: center;
+}
+
+.col
+{
+    margin: auto;
+    text-align: center;
+}
+
+.col input
+{
+    padding: 5px;
+    width: 30%;
+}
+
+.productListHeader .col
+{
+    font-weight: bold;
+}
+
+.navbar
+{
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    border-color: #333;
+    margin: 0 0 50px 0;
+}
+
+.navbar a
+{
+    color: black;
+    margin: 5px 10px;
 }

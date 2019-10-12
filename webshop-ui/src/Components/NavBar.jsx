@@ -11,17 +11,16 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem } from 'reactstrap';
+import { Link } from "react-router-dom";
 
 export class NavBar extends Component {
     render() {
         return (
             <Navbar className="navbar">
-{/*                 <NavbarBrand to="/home">
-                    <NavLink>Web Shop</NavLink>
+                <NavbarBrand>
+                    <Link to="/home">Web Shop</Link>
                 </NavbarBrand>
-                <NavLink to="/checkout">Checkout</NavLink> */}
-                <button onClick={this.props.navigateHome}>WebShop</button>
-                <button onClick={this.props.checkout}>Checkout</button>
+                <Link to="/checkout">Checkout</Link>
             </Navbar>
         );
     }

@@ -4,7 +4,7 @@ import { Navbar } from 'reactstrap';
 export class Footer extends Component {
     render() {
         return (
-            <Navbar fixed="bottom" style={{backgroundColor: '#888'}}>
+            <Navbar fixed="bottom" color="light">
                 &copy; Damian Evans 2019
             </Navbar>
         );

@@ -23,7 +23,7 @@ export class CheckoutScreen extends Component {
             <Container>
                 <Row>
                     <Col>
-                        <h2>Checkout</h2>
+                        <h2>Shopping Cart</h2>
                     </Col>
                 </Row>
                 <Row>

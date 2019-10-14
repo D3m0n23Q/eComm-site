@@ -1,8 +1,10 @@
 import React, { Component }  from "react"
 import { Redirect, Route, Switch } from "react-router-dom";
 
-import { ProductsScreen } from "./Components/ProductsScreen";
 import { CheckoutScreen } from "./Components/CheckoutScreen";
+import { Home } from "./Components/Home";
+import { NotFound } from "./Components/NotFound"
+import { ProductsScreen } from "./Components/ProductsScreen";
 import { ThankYouScreen } from "./Components/ThankYouScreen";
 
 
@@ -10,17 +12,16 @@ export class Routes extends Component {
     render() {
         return (
             <Switch>
-              <Route path="/home">
+              <Redirect exact from='/' to='/home'/>
+              <Route path="/home" component={Home} />
+              <Route path="/products">
                 <ProductsScreen cart={this.props.cart}/>
               </Route>
               <Route path="/checkout">
                 <CheckoutScreen cart={this.props.cart}/>
               </Route>
-              <Route path="/orderSubmitted">
-                <ThankYouScreen />
-              </Route>
-
-              <Redirect from='/' to='/home'/>
+              <Route path="/orderSubmitted" component={ThankYouScreen} />
+              <Route component={NotFound}/>
             </Switch>
           );
     }
